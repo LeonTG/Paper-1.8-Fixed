@@ -7,6 +7,9 @@ minecraftversion=$(cat BuildData/info.json | grep minecraftVersion | cut -d '"' 
 decompiledir=$workdir/$minecraftversion
 classdir=$decompiledir/classes
 
+source java8.sh
+getJava8
+
 echo "Extracting NMS classes..."
 if [ ! -d "$classdir" ]; then
     mkdir -p "$classdir"
@@ -22,7 +25,7 @@ fi
 echo "Decompiling classes..."
 if [ ! -d "$decompiledir/net/minecraft/server" ]; then
     cd "$basedir"
-    java -jar BuildData/bin/fernflower.jar -dgs=1 -hdc=0 -rbr=0 -asc=1 -udv=0 "$classdir" "$decompiledir"
+    "${_java8Exe}" -jar BuildData/bin/fernflower.jar -dgs=1 -hdc=0 -rbr=0 -asc=1 -udv=0 "$classdir" "$decompiledir"
     if [ "$?" != "0" ]; then
         echo "Failed to decompile classes."
         exit 1
