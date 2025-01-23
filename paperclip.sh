@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if ! type -p mvn >/dev/null 2>&1; then
+    echo "No maven installation detected! Terminating build..."
+    exit 1
+fi
+
 basedir="$(cd "$1" && pwd -P)"
 
 cp ./PaperSpigot-Server/target/paperspigot*-SNAPSHOT.jar ./Paperclip/paperspigot-1.8.8.jar

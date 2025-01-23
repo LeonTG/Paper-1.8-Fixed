@@ -14,6 +14,11 @@ jarpath=$workdir/$minecraftversion/$minecraftversion
 source java8.sh
 getJava8
 
+if ! type -p mvn >/dev/null 2>&1; then
+    echo "No maven installation detected! Terminating build..."
+    exit 1
+fi
+
 echo "Downloading unmapped vanilla jar..."
 if [ ! -f  "$jarpath.jar" ]; then
     mkdir -p "$workdir/$minecraftversion"
